@@ -12,6 +12,12 @@ If you're not sure what that means you should get the `Haskell Platform`_
 installed and read up on `Cabal`_. In addition, you should visit the
 `Snapframework`_ documentation.
 
+Finally, you'll probably want to start the server and test it out. To run it on
+port 8000 just run. When you want to stop it, hit Ctrl-C::
+
+  pdx-acm 8000
+
+
 As always, we're available for some support in irc @ `#acm`_ on the `PSU-CAT`_
 irc server.
 

@@ -5,18 +5,19 @@ from flask import Flask, g
 from flaskext.sqlalchemy import SQLAlchemy
 from flaskext.markdown import Markdown
 
-from .utils import register_modules
-from .views.frontpage import frontpage
-
 logging.basicConfig(level=logging.DEBUG)
-
 
 HOST = "localhost"
 app = Flask(__name__)
 db = SQLAlchemy(app)
 md = Markdown(app, extensions=['tables'])
 
-register_modules(app, [frontpage])
+from .utils import register_modules
+from .views.admin import admin
+from .views.pages import page
+
+
+register_modules(app, [page, admin])
 
 app.secret_key = os.urandom(24)
 

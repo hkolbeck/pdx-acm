@@ -1,0 +1,9 @@
+<form id="f_add_page" action="" method='POST'>
+  <p>{{ html.input(form['title']) }}</p>
+  <p>{{ html.textarea(form['text']) }}</p>
+  {% if func == 'add' %}
+  <p>{{ html.input(type='submit', value='add') }}</p>
+  {% else %}
+  <p>{{ html.input(type='submit', value='submit') }}</p>
+  {% endif %}
+</form>

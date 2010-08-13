@@ -1,48 +1,44 @@
-from flask import (
-    Module,
-    render_template,
-)
+ As a student run organization under National ACM guidelines we
+ strive to academically, socially, and creatively enrich the lives of our
+ members and the student body. We have been known to host events and
+ presentations. We also provide tutoring to fellow computer science
+ students. We get our funding through tutoring.  We encourge members or
+ non-member to help with tutoing which goes towards our activities as well as
+ Friday pizza and games.  Currently, we host regular meetings generally
+ centered around various types of board games, and light technical nerdery.
 
-frontpage = Module(__name__)
+ Please feel free to check out the rest of the site, sign up for our mailing
+ list, and come to one of our meetings, presentations or events, even if you're
+ not sure about becoming a member.
 
+ The club is free to join and is open to anyone.  Participate as much as you'd
+ like.
 
-@frontpage.route('/', methods=['GET'])
-def index():
-    # TODO: what do we need on the homepage?
-    # How about notifications of new stuff added
-    md = """ As a student run organization under National ACM guidelines we
-    strive to academically, socially, and creatively enrich the lives of our
-    members and the student body. We have been known to host events and
-    presentations. We also provide tutoring to fellow computer science
-    students. We get our funding through tutoring.  We encourge members or
-    non-member to help with tutoing which goes towards our activities as well as
-    Friday pizza and games.  Currently, we host regular meetings generally
-    centered around various types of board games, and light technical nerdery.
+ We are now holding weekly mtgs. with guest member speakers before we meet for
+ pizza.
 
-Please feel free to check out the rest of the site, sign up for our mailing
-list, and come to one of our meetings, presentations or events, even if you're
-not sure about becoming a member.
+ The following students and faculty are serving as the PSU ACM officers:
 
-The club is free to join and is open to anyone.  Participate as much as you'd
-like.
-
-We are now holding weekly mtgs. with guest member speakers before we meet for
-pizza.
-
-The following students and faculty are serving as the PSU ACM officers:
-
-- Advisor - Bart Massey - `bart at cs.pdx.edu`
-- Chair - Cory Kolbeck - `cbeck at cs.pdx.edu` 
-- Vice Chair - Dan Colish - `dcolish at cs.pdx.edu` """
-
-    return render_template("md.html",
-                           md=md)
+ - Advisor - Bart Massey - `bart at cs.pdx.edu`
+ - Chair - Cory Kolbeck - `cbeck at cs.pdx.edu` 
+ - Vice Chair - Dan Colish - `dcolish at cs.pdx.edu`
 
 
-@frontpage.route('/about', methods=['GET'])
-def about():
 
-    md = """The Association for Computing Machinery, or ACM, was founded in
+{% extends "base.html" %}
+
+{% block main %}
+{% filter markdown %}
+
+During the school year we meet once a week on Friday's to hear a speaker, play games and eat pizza. You should join us.
+
+{% endfilter %}
+{% endblock %}
+
+
+
+
+The Association for Computing Machinery, or ACM, was founded in
 1947 as the world's first scientific and educational computing society. Its
 membership is around 83,000 as of 2007. Its headquarters are in New York City.
     
@@ -63,35 +59,12 @@ Blue computer.
 
   [Wikipedia][]
 
-  [Wikipedia]: http://en.wikipedia.org/w/index.php?title=Association_for_Computing_Machinery
-       """
-
-    return render_template("md.html",
-                           md=md)
+  [Wikipedia]:
+  http://en.wikipedia.org/w/index.php?title=Association_for_Computing_Machinery
 
 
-@frontpage.route('/events', methods=['GET'])
-def events():
-    md = """During the school year we meet once a week on Friday's to hear a
-    speaker, play games and eat pizza. You should join us."""
-
-    return render_template("md.html",
-                           md=md)
 
 
-@frontpage.route('/contact', methods=['GET'])
-def contact():
-    md = """
-- For contacting the officers of the ACM @ PSU use acm-officers@pdx.edu
-- For contacting the membership of the ACM @ PSU use acm-members@cs.pdx.edu
-"""
-    return render_template("md.html",
-                           md=md)
-
-
-@frontpage.route('/minutes', methods=['GET'])
-def minutes():
-    md = """
 ## ACM Minutes 5-14-2010
 ### 05/14/2010
 
@@ -149,6 +122,10 @@ carrbs will look into some graphic design possibilities.
 #### 6:30pm
 
  meeting adjourned
-"""
-    return render_template("md.html",
-                           md=md)
+
+
+
+
+
+- For contacting the officers of the ACM @ PSU use acm-officers@pdx.edu
+- For contacting the membership of the ACM @ PSU use acm-members@cs.pdx.edu

@@ -1,23 +1,6 @@
-"""
-Portland State ACM
-------------------
-
-This is the code repository for Portland State's ACM chapter website. Clearly
-this code is very new and experimental. If you try to use it don't always expect
-it to work correctly. In other words, YRMV. To install checkout this repo and
-run::
-
-  python setup.py develop
-
-
-Links
-`````
-
-* `development version
-  <http://github.com/dcolish/pdx-acm/zipball/master#egg=pdxacm-dev>`_
-
-"""
 from setuptools import setup, find_packages
+
+readme = open('README.rst')
 
 setup(name="pdxacm",
       version="dev",
@@ -27,7 +10,7 @@ setup(name="pdxacm",
       author='Dan Colish',
       author_email='dcolish@gmail.com',
       description='Portland State ACM Website',
-      long_description=__doc__,
+      long_description=readme.read(),
       zip_safe=False,
       platforms='any',
       license='BSD',
@@ -66,3 +49,5 @@ setup(name="pdxacm",
         'alfajor',
         ],
       )
+
+readme.close()

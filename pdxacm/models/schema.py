@@ -2,6 +2,7 @@
 
 from werkzeug import generate_password_hash, check_password_hash
 from pdxacm.webapp import db
+from datetime import datetime
 
 
 class User(db.Model):
@@ -36,7 +37,7 @@ class Page(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), unique=True)
     text = db.Column(db.String)
-    last_edited_on = db.Column(db.DateTime, server_onupdate=('NOW()'))
+    last_edited_on = db.Column(db.DateTime, onupdate=(datetime.today))
     last_edited_by = db.Column(db.Integer, db.ForeignKey('users.id'))
     frozen = db.Column(db.Boolean, default=False)
     edited_by = db.relationship('User',

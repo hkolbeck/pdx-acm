@@ -1,9 +1,38 @@
-<form id="f_add_page" action="" method='POST'>
-  <p>{{ html.input(form['title']) }}</p>
-  <p>{{ html.textarea(form['text']) }}</p>
+{% extends "base.html" %}
+{% block title %}
+{% if func == 'edit' %}
+- Editing {{ page.title }}
+{% else %}
+- Add new page
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<form id="f_page" action="" method='POST'>
+  {% if func == 'edit' %}
+  <h3>{{ page.title }}</h3> 
+  <p>last edited {{ page.last_edited_on }} by {{ page.edited_by.username }}</p>
+  {% endif %}
+  <dl>
+    {% if func == 'add' %}
+    <dt>{{ form.title.label }}</dt>
+    <dd>{{ html.input(form['title']) }}</dd>
+    {% for error in form.title.errors %}
+    <label for="{{ form.title }}">{{ error }}</label>
+    {% endfor %}
+    {% endif %}
+
+    <dt>{{ form.text.label }}</dt>
+    <dd>{{ html.textarea(form['text'], rows='30', cols='80') }}</dd>
+    {% for error in form.text.errors %}
+    <label for="{{ form.text }}">{{ error }}</label>
+    {% endfor %}
+  </dl>
+  
   {% if func == 'add' %}
   <p>{{ html.input(type='submit', value='add') }}</p>
   {% else %}
   <p>{{ html.input(type='submit', value='submit') }}</p>
   {% endif %}
 </form>
+{% endblock %}

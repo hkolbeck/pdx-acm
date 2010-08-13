@@ -1,24 +1,43 @@
-<html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" >
+
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Portland State ACM</title>
+    <title>Portland State ACM {% block title %}{% endblock %}</title>
+    <link type="text/css" rel="stylesheet" href="/static/site.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
   </head>
   <body>
-    <div id="header">
-        <h1><a href="/">ACM @ Portland State</a></h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class=flashes>
+      {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    <div id="nav">
+      <div id="branding">
+      <h1><a href="/">ACM @ Portland State</a></h1>
+      </div>
+      {% include "user_actions.html" with context %}
+    </div>
+    <div id="sidebar">
+      <ul>
+        <li><a href="/events">Events</a></li>
+        <li><a href="/minutes">Meeting Minutes</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      {% block sidebar_extra %}{% endblock %}
     </div>
     <div id="content">
-      <div id="sidbar">
-        <ul>
-          <li><a href="/events">Events</a></li>
-          <li><a href="/minutes">Meeting Minutes</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-        {% block sidebar_extra %}{% endblock %}
-      </div>
-        {% block main %}{% endblock %}
+        {% block content %}{% endblock %}
     </div>
     <div id="footer">
+      {% block footer %}{% endblock %}
       <p>Copyright 2010 PSU-ACM</p>
     </div>
   </body>

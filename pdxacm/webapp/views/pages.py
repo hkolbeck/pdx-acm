@@ -12,7 +12,7 @@ from flatland.out.markup import Generator
 from pdxacm.models.schema import db, Page
 from .util import login_required
 
-from .forms.pages import PageForm
+from .forms.pages import PageAddForm, PageEditForm
 
 page = Module(__name__)
 
@@ -21,6 +21,7 @@ page = Module(__name__)
 @page.route('/<any(about, contact, events, minutes):title>')
 @page.route('/view/<int:id>')
 def view(id=None, title=None):
+
     if id:
         md = Page.query.filter_by(id=id).one()
     elif title:
@@ -29,14 +30,15 @@ def view(id=None, title=None):
         return redirect('/404.html')
 
     return render_template("md.html",
-                           md=md.text)
+                           md=md)
 
 
 @page.route('/pages/add', methods=['GET', 'POST'])
 @login_required
 def add():
     if request.method == 'POST':
-        form = PageForm.from_flat(request.form)
+        form = PageAddForm.from_flat(request.form)
+        form.validate()
         page = Page(title=form['title'].value,
                     text=form['text'].value,
                     last_edited_by=g.user.id)
@@ -44,7 +46,7 @@ def add():
         db.session.commit()
         return redirect(url_for('view', title=page.title))
 
-    form = PageForm()
+    form = PageAddForm()
     gen = Generator()
 
     return render_template("edit_page.html",
@@ -53,29 +55,39 @@ def add():
                            html=gen)
 
 
+@page.route('/edit', defaults={'title': 'home'}, methods=['GET', 'POST'])
+@page.route('/<any(about, contact, events, home, minutes):title>/edit',
+            methods=['GET', 'POST'])
 @page.route('/pages/edit/<int:id>', methods=['GET', 'POST'])
 @page.route('/pages/edit/<string:title>', methods=['GET', 'POST'])
 @login_required
 def edit(id=None, title=None):
     if request.method == 'POST':
-        form = PageForm.from_flat(request.form)
-        page = Page.query.filter_by(title=form['title'].value).one()
-        page.text = form['text'].value
-        page.last_edited_by = g.user.id
-        db.session.add(page)
-        db.session.commit()
-        return redirect(url_for('view', title=page.title))
+        form = PageEditForm.from_flat(request.form)
+        if form.validate():
+            page = Page.query.filter_by(title=title).one()
+            page.text = form['text'].value
+            page.last_edited_by = g.user.id
+            db.session.add(page)
+            db.session.commit()
+            return redirect(url_for('view', title=page.title))
+
+        else:
+            if page.text == None:
+                form['text'].add_error('Text content is required')
+                gen = Generator()
+                return render_template("edit_page.html", form=form, html=gen)
 
     if id:
         page = Page.query.filter_by(id=id).one()
     elif title:
         page = Page.query.filter_by(title=title).one()
 
-    form = PageForm({'title': page.title,
-                     'text': page.text})
+    form = PageEditForm({'text': page.text})
     gen = Generator()
 
     return render_template("edit_page.html",
                            func='edit',
                            form=form,
-                           html=gen)
+                           html=gen,
+                           page=page)

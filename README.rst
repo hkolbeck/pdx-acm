@@ -9,6 +9,8 @@ run::
   python setup.py develop
 
 
+As always, we're available for some support in irc @ #acm on the PSU-CAT irc server.
+
 Links
 `````
 

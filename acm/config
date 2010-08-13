@@ -1,0 +1,10 @@
+[default]
+siteurl = http://localhost:8000
+
+# posts are mapped to this URL
+baseurl = /meh
+
+
+[feed]
+title    = ACM Blog
+authors  = ACM <acm@cs.pdx.edu>

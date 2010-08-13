@@ -10,12 +10,13 @@
       <div id="sidbar">
         <ul>
           <li><a href="/events">Events</a></li>
+          <li><a href="/minutes">Meeting Minutes</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
         <sidebar-extra/>
       </div>
-      <main/>
+        <main/>
     </div>
     <div id="footer">
       <p>Copyright 2010 PSU-ACM</p>

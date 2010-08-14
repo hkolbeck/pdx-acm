@@ -1,4 +1,5 @@
 from flask import (
+    flash,
     g,
     Module,
     redirect,
@@ -44,6 +45,7 @@ def add():
                     last_edited_by=g.user.id)
         db.session.add(page)
         db.session.commit()
+        flash("Your page was successfully added", "success")
         return redirect(url_for('view', title=page.title))
 
     form = PageAddForm()
@@ -70,12 +72,14 @@ def edit(id=None, title=None):
             page.last_edited_by = g.user.id
             db.session.add(page)
             db.session.commit()
+            flash("Your page was saved", "success")
             return redirect(url_for('view', title=page.title))
 
         else:
             if page.text == None:
                 form['text'].add_error('Text content is required')
                 gen = Generator()
+                flash("Form submission failed, see errors", "failure")
                 return render_template("edit_page.html", form=form, html=gen)
 
     if id:

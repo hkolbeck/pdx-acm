@@ -34,6 +34,8 @@ def login():
             if user.check_password(request.form['password']):
                 g.user = user
                 set_user()
+                if request.is_xhr:
+                    return render_template("user_actions.html")
                 if request.args:
                     return redirect(request.args.get('next'))
                 else:
@@ -52,7 +54,10 @@ def login():
 @admin.route('/logout', methods=['GET'])
 def logout():
     session.pop('username', None)
-    return redirect(url_for('frontend.index'))
+    if request.is_xhr:
+        return render_template("user_actions.html")
+
+    return redirect('/')
 
 
 @admin.route('/signup', methods=['GET', 'POST'])
@@ -60,12 +65,19 @@ def signup():
     if request.method == 'POST':
         user = User(request.form['username'],
                    request.form['password'])
-
         db.session.add(user)
-        db.session.commit()
+        try:
+            db.session.commit()
+        except:
+            db.session.rollback()
         g.user = user
         set_user()
+
+        if request.is_xhr:
+            return render_template("user_actions.html")
+
         return redirect('/')
+
     form = SignupForm()
     gen = Generator()
     return render_template("admin/signup.html",

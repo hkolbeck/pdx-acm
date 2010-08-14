@@ -1,8 +1,9 @@
 <div id="useractions">
   {% if session.username %}
   <p>Hi, {{ session.username }}</p>
-  <p><a href="{{ url_for('admin.logout') }}">Logout</a></p>
+  <p><a id="logout" href="{{ url_for('admin.logout') }}">Logout</a></p>
   {% else %}
-  <p><a href="{{ url_for('admin.login') }}">Login</a></p>
+  <p><a id="signup" href="{{ url_for('admin.signup') }}">Signup</a></p>
+  <p><a id="login" href="{{ url_for('admin.login') }}">Login</a></p>
   {% endif %}
 </div>

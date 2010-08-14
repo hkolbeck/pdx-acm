@@ -5,7 +5,11 @@
   <head>
     <title>Portland State ACM {% block title %}{% endblock %}</title>
     <link type="text/css" rel="stylesheet" href="/static/site.css" />
+    <link type="text/css" rel="stylesheet"
+          href="http://colishcloud.appspot.com/static/css/smoothness/jquery-ui-1.8.4.custom.css" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/static/site.js"></script>
   </head>
   <body>
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -20,10 +24,11 @@
 
     <div id="nav">
       <div id="branding">
-      <h1><a href="/">ACM @ Portland State</a></h1>
+        <h1><a href="/">ACM @ Portland State</a></h1>
       </div>
       {% include "user_actions.html" with context %}
     </div>
+    <div id="login-form"></div>
     <div id="sidebar">
       <ul>
         <li><a href="/events">Events</a></li>

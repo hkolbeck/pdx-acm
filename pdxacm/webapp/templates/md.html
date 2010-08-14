@@ -2,6 +2,12 @@
 {% block title %}
 - {{ md.title | capitalize}}
 {% endblock %}
+
+
 {% block content %}
+{% if session.username %}
+<a href="{{url_for('edit', title=md.title )}}">Edit</a>
+{% endif %}
+
 {{ md.text | markdown }}
 {% endblock %}

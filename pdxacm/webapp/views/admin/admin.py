@@ -9,7 +9,8 @@ from flask import (
 )
 from flatland.out.markup import Generator
 
-from pdxacm.models.schema import db, User
+from pdxacm.webapp import db
+from pdxacm.models.schema import User
 from .forms.admin import LoginForm, SignupForm
 
 admin = Module(__name__)

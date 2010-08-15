@@ -14,10 +14,11 @@ md = Markdown(app, extensions=['tables'])
 
 from .utils import register_modules
 from .views.admin import admin
-from .views.pages import page
+from .views.events import events
+from .views.meetings import meetings
+from .views.pages import pages
 
-
-register_modules(app, [page, admin])
+register_modules(app, [admin, events, meetings, pages])
 
 app.secret_key = os.urandom(24)
 

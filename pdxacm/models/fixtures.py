@@ -1,3 +1,7 @@
+from .schema import Page
+
+
+home = Page(title="home", text="""
  As a student run organization under National ACM guidelines we
  strive to academically, socially, and creatively enrich the lives of our
  members and the student body. We have been known to host events and
@@ -20,28 +24,16 @@
  The following students and faculty are serving as the PSU ACM officers:
 
  - Advisor - Bart Massey - `bart at cs.pdx.edu`
- - Chair - Cory Kolbeck - `cbeck at cs.pdx.edu` 
+ - Chair - Cory Kolbeck - `cbeck at cs.pdx.edu`
  - Vice Chair - Dan Colish - `dcolish at cs.pdx.edu`
+""")
 
 
-
-{% extends "base.html" %}
-
-{% block main %}
-{% filter markdown %}
-
-During the school year we meet once a week on Friday's to hear a speaker, play games and eat pizza. You should join us.
-
-{% endfilter %}
-{% endblock %}
-
-
-
-
+about = Page(title="about", text="""
 The Association for Computing Machinery, or ACM, was founded in
 1947 as the world's first scientific and educational computing society. Its
 membership is around 83,000 as of 2007. Its headquarters are in New York City.
-    
+
 ACM is organized into over 170 local chapters and 34 Special Interest Groups
 (SIGs), through which it conducts most of its activities. Additionally, there
 are over 500 college and university chapters. The first student chapter was
@@ -61,9 +53,9 @@ Blue computer.
 
   [Wikipedia]:
   http://en.wikipedia.org/w/index.php?title=Association_for_Computing_Machinery
+""")
 
-
-
+minutes = """
 
 ## ACM Minutes 5-14-2010
 ### 05/14/2010
@@ -89,7 +81,7 @@ SALP requirements:
 
 - jesusaurus needs to register with ACM
 
-- Some discussion about speakers for next week. 
+- Some discussion about speakers for next week.
 
 - Dan has free time NEXT week to work on the website. Carrbs can work with him.
 
@@ -101,31 +93,34 @@ SALP requirements:
 
 - we are paying Corbin's (the speaker) gas/transportation ($20)
 
-- cbeck moves that Cory Kolbeck, Jon Harker, and Bart Massey be the sole signers on our US Bank account.
+- cbeck moves that Cory Kolbeck, Jon Harker, and Bart Massey be the sole
+  signers on our US Bank account.
 
-- Aye: 5
-- Nay: 0
+- Aye: 5 Nay: 0
 
 #### 6:15 - summer agenda
 
-- three classes offered
-- 163 and 202 is only on friday.
+- three classes offered 163 and 202 is only on friday.
 
-the reason is that we were gonna do a popsicle tuesday. Let's make it thursday because more students will be here.
+the reason is that we were gonna do a popsicle tuesday. Let's make it thursday
+because more students will be here.
 
-Because we can only spam mcecs once a month, we should recruit speakers NOW. If you happen to run into someone now, let them know we're looking for Fall term speakers.
+Because we can only spam mcecs once a month, we should recruit speakers NOW. If
+you happen to run into someone now, let them know we're looking for Fall term
+speakers.
 
-second breakfast is on tuesdays at 9:30 in the fishbowl. Good way to keep relations with grad students, it's casual. Everyone is invited, ACM officers should make an effort to attend.
+second breakfast is on tuesdays at 9:30 in the fishbowl. Good way to keep
+relations with grad students, it's casual. Everyone is invited, ACM officers
+should make an effort to attend.
 
 carrbs will look into some graphic design possibilities.
 
 #### 6:30pm
 
  meeting adjourned
+"""
 
-
-
-
-
+contact = Page(title="contact", text="""
 - For contacting the officers of the ACM @ PSU use acm-officers@pdx.edu
 - For contacting the membership of the ACM @ PSU use acm-members@cs.pdx.edu
+""")

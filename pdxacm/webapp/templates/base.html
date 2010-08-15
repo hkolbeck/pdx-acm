@@ -14,7 +14,7 @@
   <body>
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-    <ul class=flashes>
+    <ul class="flashes">
       {% for category, message in messages %}
       <li class="{{ category }}">{{ message }}</li>
       {% endfor %}
@@ -31,10 +31,10 @@
     <div id="login-form"></div>
     <div id="sidebar">
       <ul>
-        <li><a href="/events">Events</a></li>
-        <li><a href="/minutes">Meeting Minutes</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
+        <li><a href="{{ url_for('events.index') }}">Events</a></li>
+        <li><a href="{{ url_for('meetings.index') }}">Meeting Minutes</a></li>
+        <li><a href="{{ url_for('pages.view', title='about') }}">About</a></li>
+        <li><a href="{{ url_for('pages.view', title='contact') }}">Contact</a></li>
       </ul>
       {% block sidebar_extra %}{% endblock %}
     </div>

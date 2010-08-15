@@ -2,7 +2,7 @@
 
 from werkzeug import generate_password_hash, check_password_hash
 from pdxacm.webapp import db
-from datetime import datetime
+from datetime import date, datetime
 
 
 class User(db.Model):
@@ -34,15 +34,54 @@ class User(db.Model):
 
 class Page(db.Model):
     __tablename__ = 'pages'
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), unique=True)
     text = db.Column(db.String)
     last_edited_on = db.Column(db.DateTime, onupdate=(datetime.today))
     last_edited_by = db.Column(db.Integer, db.ForeignKey('users.id'))
     frozen = db.Column(db.Boolean, default=False)
+    discriminator = db.Column('type', db.String(20))
+
     edited_by = db.relationship('User',
                                 order_by=User.id,
                                 backref='users')
+
+    __mapper_args__ = {'polymorphic_on': discriminator,
+                       'polymorphic_identity': 'page'}
+
+    # def __init__(self, title, text, last_edited_by=None):
+    #     self.title = title
+    #     self.text = text
+
+    def __repr__(self):
+        return '<Page %r>' % self.title
+
+
+class Meeting(Page):
+    attendees = db.Column(db.Integer)
+
+    __mapper_args__ = {'polymorphic_identity': 'meeting'}
+
+    # def __init__(self, attendees, *kwargs):
+    #     self.title = "Meeting Minutes %s" % date.today()
+    #     self.text = text
+
+    def __repr__(self):
+        return '<Meeting %r>' % self.title
+
+
+class Event(Page):
+    __mapper_args__ = {'polymorphic_identity': 'event'}
+
+    location = db.Column(db.String)
+
+    # def __init__(self, title, text, location):
+    #     self.title = "Meeting Minutes %s" % date.today()
+    #     self.text = text
+
+    def __repr__(self):
+        return '<Event %r>' % self.title
 
 
 class Group(db.Model):

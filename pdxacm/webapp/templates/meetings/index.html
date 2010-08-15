@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+{% for meeting in meetings %}
+<p><a href="{{url_for('meetings.view', id=meeting.id) }}">{{ meeting.title }}</a></p>
+{% endfor %}
+{% endblock %}

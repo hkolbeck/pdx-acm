@@ -15,12 +15,13 @@ from .util import login_required
 
 from .forms.pages import PageAddForm, PageEditForm
 
-page = Module(__name__)
+pages = Module(__name__)
 
 
-@page.route('/', defaults={'title': 'home'})
-@page.route('/<any(about, contact, events, minutes):title>')
-@page.route('/view/<int:id>')
+@pages.route('/', defaults={'title': 'home'})
+@pages.route('/<any(about, contact):title>')
+@pages.route('/view/<int:id>')
+@pages.route('/view/<title>')
 def view(id=None, title=None):
 
     if id:
@@ -30,11 +31,11 @@ def view(id=None, title=None):
     else:
         return redirect('/404.html')
 
-    return render_template("md.html",
+    return render_template("pages/md.html",
                            md=md)
 
 
-@page.route('/pages/add', methods=['GET', 'POST'])
+@pages.route('/pages/add', methods=['GET', 'POST'])
 @login_required
 def add():
     if request.method == 'POST':
@@ -57,11 +58,11 @@ def add():
                            html=gen)
 
 
-@page.route('/edit', defaults={'title': 'home'}, methods=['GET', 'POST'])
-@page.route('/<any(about, contact, events, home, minutes):title>/edit',
+@pages.route('/edit', defaults={'title': 'home'}, methods=['GET', 'POST'])
+@pages.route('/<any(about, contact, home, minutes):title>/edit',
             methods=['GET', 'POST'])
-@page.route('/pages/edit/<int:id>', methods=['GET', 'POST'])
-@page.route('/pages/edit/<string:title>', methods=['GET', 'POST'])
+@pages.route('/pages/edit/<int:id>', methods=['GET', 'POST'])
+@pages.route('/pages/edit/<string:title>', methods=['GET', 'POST'])
 @login_required
 def edit(id=None, title=None):
     if request.method == 'POST':

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<p>During the school year we meet once a week on Friday's to hear a speaker, play
+games and eat pizza. You should join us.<p>
+<ul>
+  {% for event in events %}
+  <li><a href="{{url_for('view', id=event.id) }}">{{ event.title }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
